@@ -14,5 +14,17 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <!-- JWT -->
+    <dependency>
+	    <groupId>io.jsonwebtoken</groupId>
+	    <artifactId>jjwt</artifactId>
+	    <version>0.9.0</version>
+	</dependency>
+	<!-- HTTP client -->
+	<dependency>
+    <groupId>org.apache.httpcomponents</groupId>
+    <artifactId>httpclient</artifactId>
+    <version>4.5.5</version>
+</dependency>
   </dependencies>
 </project>
