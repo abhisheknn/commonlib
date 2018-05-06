@@ -175,7 +175,7 @@ public Key getPrivateKey(String alias) {
 	
 	public String getPublicKeyFrmServer(String authServerUrl) {
 		
-		String url=authServerUrl+"/getPublicKey";
+		String url=authServerUrl+"/authserver/getPublicKey";
 		HttpClient client= HttpClientBuilder.create().build();
 		HttpGet req= new HttpGet(url);
 		
