@@ -30,6 +30,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 import com.micro.auth.constant.AppConstants;
+import com.micro.client.RestClient;
+
 import sun.security.x509.AlgorithmId;
 import sun.security.x509.CertificateAlgorithmId;
 import sun.security.x509.CertificateSerialNumber;
@@ -42,6 +44,8 @@ import sun.security.x509.X509CertInfo;
 
 //@Component
 public class KeyProvider {
+	
+	
 	
 	
 	private X509Certificate generateCertificate(String dn, KeyPair keyPair, int validity, String sigAlgName) throws GeneralSecurityException, IOException {
@@ -174,33 +178,8 @@ public Key getPrivateKey(String alias) {
 	}
 	
 	public String getPublicKeyFrmServer(String authServerUrl) {
-		
 		String url=authServerUrl+"/authserver/getPublicKey";
-		HttpClient client= HttpClientBuilder.create().build();
-		HttpGet req= new HttpGet(url);
-		
-		StringBuffer result=null;
-		try {
-			HttpResponse response= client.execute(req);
-			int responsecode=response.getStatusLine().getStatusCode();
-			if( responsecode>=200 && responsecode<400) {
-				BufferedReader rd = new BufferedReader(
-						new InputStreamReader(response.getEntity().getContent()));
-				
-				result = new StringBuffer();
-				String line = "";
-				while ((line = rd.readLine()) != null) {
-					result.append(line);
-				}
-			}
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return result.toString();
+		return RestClient.doGet(url, null);
 	}
 	
 }
