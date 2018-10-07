@@ -3,12 +3,15 @@ package com.micro.client;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 
@@ -21,10 +24,21 @@ import org.apache.http.client.HttpClient;
 
 
 public abstract class RestClient {
-
-	public static String doPost(String url,Map<String, Object> requestBody,Map<String, String> requestHeaders) {
-		
-		return null;
+private static Gson gson= new Gson();
+	public static String doPost(String url,Map<String, Object> requestBody,Map<String, String> requestHeaders) throws ClientProtocolException, IOException,UnknownHostException {
+		 CloseableHttpClient client =  HttpClientBuilder.create().build();
+		 HttpPost httpPost= new HttpPost(url);
+		 String json=gson.toJson(requestBody);
+		 StringEntity entity = new StringEntity(json);
+		 httpPost.setEntity(entity);
+		 if(null !=requestHeaders) {
+		 for(Map.Entry<String, String> entry:requestHeaders.entrySet()) {
+			 httpPost.addHeader(entry.getKey(), entry.getValue());
+		 }
+		 }
+		 HttpResponse httpResponse = client.execute(httpPost);
+		 client.close();
+		return gson.toJson(httpResponse.getStatusLine());
 	}
 	
 	public static String doGet(String url, Map<String, String> requestHeaders) {
