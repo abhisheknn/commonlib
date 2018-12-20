@@ -12,12 +12,9 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 public class JWTProvider {
-	KeyProvider keyProvider;
 	
-	public void setKeyProvider(KeyProvider keyProvider) {
-		this.keyProvider=keyProvider;
-	}
-	public String getToken(String userName, Map<String, Object>   claims) {
+	
+	public String getToken(String entityName, Map<String, Object> claims,KeyProvider keyProvider) {
 		String s = null;
 		Calendar expires = Calendar.getInstance();
 		expires.roll(Calendar.HOUR, 2);
@@ -26,7 +23,7 @@ public class JWTProvider {
 			Key key = keyProvider.getPrivateKey(AppConstants.CERTALIAS); // Get this from configuration server
 			s = Jwts.builder()
 					.setClaims(claims)
-					.setSubject(userName)	
+					.setSubject(entityName)	
 					.setIssuedAt(new Date())
 					.setExpiration(expires.getTime())
 					.signWith(SignatureAlgorithm.RS256, key).compact();
