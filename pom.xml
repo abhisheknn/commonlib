@@ -8,12 +8,14 @@
   <name>commonlib</name>
   <url>http://maven.apache.org</url>
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
+    <!-- https://mvnrepository.com/artifact/junit/junit -->
+<dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.11</version>
+    <scope>test</scope>
+</dependency>
+
     <!-- JWT -->
     <dependency>
 	    <groupId>io.jsonwebtoken</groupId>
@@ -43,6 +45,21 @@
 	  <artifactId>lettuce</artifactId>
 	  <version>4.4.0.Final</version>
 	</dependency>
+
+<!-- Cassandra Dependecies  -->
+
+<dependency>
+  <groupId>com.datastax.cassandra</groupId>
+  <artifactId>cassandra-driver-core</artifactId>
+  <version>3.6.0</version>
+</dependency>
+
+
+<dependency>
+    <groupId>org.cassandraunit</groupId>
+    <artifactId>cassandra-unit</artifactId>
+    <version>3.5.0.1</version>
+</dependency>
 
   </dependencies>
 <build>  

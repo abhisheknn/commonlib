@@ -9,4 +9,6 @@ public static final String keyStorePassword="wintermore";
 public static final String keyStoreName="keyserverstore.keystore";
 public static final String JWTOKEN = "jwtoken";
 
+public static enum ReplicationStrategy {SimpleStrategy,NetworkTopologyStrategy}
+
 }
