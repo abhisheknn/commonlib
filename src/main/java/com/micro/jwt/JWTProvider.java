@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
-import com.micro.auth.constant.AppConstants;
+import com.micro.constant.AppConstants;
 import com.micro.cert.KeyProvider;
 
 import io.jsonwebtoken.Jwts;

@@ -4,12 +4,12 @@ import java.util.Map;
 
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.exceptions.QueryValidationException;
-import com.micro.auth.constant.AppConstants.ReplicationStrategy;
+import com.micro.constant.AppConstants.ReplicationStrategy;
 
 
 public class Cassandra { 
 	 
-	public void createKeySpace(Session session,String keySpaceName, ReplicationStrategy replicationStrategy, int replicationFactor) throws QueryValidationException {
+	public static void createKeySpace(Session session,String keySpaceName, ReplicationStrategy replicationStrategy, int replicationFactor) throws QueryValidationException {
 		
 		if(session==null) {
 			throw new QueryValidationException("Session cannnot be null") {};
@@ -33,7 +33,7 @@ public class Cassandra {
 	}
 	
 	 
-	public void createTable(Session session ,String keySpace,String tableName,Map<String,String> columConfiguration) {
+	public static void createTable(Session session ,String keySpace,String tableName,Map<String,String> columConfiguration) {
 
     StringBuilder sb = new StringBuilder("CREATE TABLE IF NOT EXISTS ")
     					.append(keySpace)
@@ -54,7 +54,7 @@ public class Cassandra {
 	}
 	
 	
-	public void alterTable(Session session, String keySpace,String tableName,String columnName, String columnType) {
+	public static void alterTable(Session session, String keySpace,String tableName,String columnName, String columnType) {
 	    
 	 if(session!=null) {
 		StringBuilder sb = new StringBuilder("ALTER TABLE ")

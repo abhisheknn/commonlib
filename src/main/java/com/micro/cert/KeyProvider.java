@@ -29,7 +29,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 
-import com.micro.auth.constant.AppConstants;
+import com.micro.constant.AppConstants;
 import com.micro.client.RestClient;
 
 import sun.security.x509.AlgorithmId;
