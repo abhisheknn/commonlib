@@ -64,7 +64,7 @@ public class TestCassandra {
 		assertEquals(matchedKeyspaces.size(), 1);
 	}
 
-	@Test
+	//@Test
 	public void should_throwQueryValidationException_when_keyspaceIsNull() {
 		String keyspaceName = null;
 		int replicationFactor = -1;
@@ -75,7 +75,7 @@ public class TestCassandra {
 		}
 	}
 
-	@Test
+	//@Test
 	public void should_throwQueryValidationException_when_keyspaceContainsSpace() {
 		String keyspaceName = null;
 		int replicationFactor = -1;
@@ -86,7 +86,7 @@ public class TestCassandra {
 		}
 	}
 
-	@Test
+	//@Test
 	public void should_throwQueryValidationException_when_replicationFactorLessThanZero() {
 		String keyspaceName = "test";
 		int replicationFactor = -1;
@@ -97,7 +97,7 @@ public class TestCassandra {
 		}
 	}
 
-	@Test
+	//@Test
 	public void should_createTable_whenProperParameterIsPassed() {
 		String keySpace = "test";
 		String tableName = "Machine";
@@ -120,7 +120,7 @@ public class TestCassandra {
 		assertTrue(columnNames.contains("birthday"));
 	}
 
-	@Test
+	//@Test
 	public void should_AddNewColumn_whenProperParameterPassed() {
 		String keySpace = "test";
 		String tableName = "Mac";

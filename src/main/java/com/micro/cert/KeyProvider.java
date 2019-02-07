@@ -177,9 +177,10 @@ public Key getPrivateKey(String alias) {
 	    return keyStore;
 	}
 	
-	public String getPublicKeyFrmServer(String authServerUrl) {
-		String url=authServerUrl+"/authserver/getPublicKey";
-		return RestClient.doGet(url, null);
-	}
+//	public String getPublicKeyFrmServer(String authServerUrl) {
+//		String url=authServerUrl+"/authserver/getPublicKey";
+//		
+//		return doGet(url, null);
+//	}
 	
 }

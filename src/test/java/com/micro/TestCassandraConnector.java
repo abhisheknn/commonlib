@@ -35,7 +35,7 @@ public void connectCassandra() {
 	
 }	
 	
-@Test 
+//@Test 
 public void should_createSession_when_getSessionCalled() {
 }
 	
