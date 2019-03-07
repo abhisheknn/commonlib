@@ -1,8 +1,5 @@
 package com.micro.kafka;
 
-import java.lang.reflect.Type;
-import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
 
@@ -12,12 +9,6 @@ import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.Topology;
-import org.apache.kafka.streams.kstream.Produced;
-
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 
 public class StreamProcessor{
 
@@ -33,11 +24,6 @@ public class StreamProcessor{
 	private void setProcessor(Processor processor) {
 		this.processor=processor;
 	}
-	
-	private void setBuilder(Builder builder) {
-		this.builder=builder;
-	}
-	
 	public static Builder build() {
 		builder=new Builder();
 		return builder;
@@ -45,7 +31,7 @@ public class StreamProcessor{
 	
 	public void start() {
 		
-		StreamsBuilder builder = processor.execute();
+		StreamsBuilder builder = (StreamsBuilder) processor.execute();
         final Topology topology = builder.build();
         final KafkaStreams streams = new KafkaStreams(topology, props);
         final CountDownLatch latch = new CountDownLatch(1);
