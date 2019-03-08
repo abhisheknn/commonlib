@@ -64,7 +64,6 @@ public class KafkaConsumer {
 	}
 	 
 	 public Consumer getConsumer( ) {
-		 System.out.println(consumer);
 		 return consumer;
 	 }
 	
