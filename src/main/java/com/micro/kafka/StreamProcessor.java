@@ -59,9 +59,9 @@ public class StreamProcessor{
 		
 		public Builder withProperties(Properties props) {
 			if(null==props.get(StreamsConfig.APPLICATION_ID_CONFIG)) throw new ConfigException(StreamsConfig.APPLICATION_ID_CONFIG +" not present");
-	        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, System.getenv("KAFKABROKERS"));
-	        props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
-	        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
+			if(null==props.get(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG)) props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, System.getenv("KAFKABROKERS"));
+			if(null==props.get(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG)) props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
+			if(null==props.get(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG)) props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
 	        streamProcessor.setProperties(props);
 			return builder;
 		}

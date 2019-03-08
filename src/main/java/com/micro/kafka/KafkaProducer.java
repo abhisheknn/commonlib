@@ -47,8 +47,8 @@ public class KafkaProducer{
 		
 		public KafkaProducer withConfig(Properties config) {
 			if(null==config.get(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG)) throw new ConfigException(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG + "not present");
-			config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-			config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+			if(null==config.get(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG))  config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+			if(null==config.get(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG)) config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 			org.apache.kafka.clients.producer.KafkaProducer producer= new org.apache.kafka.clients.producer.KafkaProducer<>(config);
 			kafkaProducer.setKafkaProducer(producer);	
 			return kafkaProducer;
