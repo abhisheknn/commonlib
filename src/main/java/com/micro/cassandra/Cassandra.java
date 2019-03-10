@@ -122,9 +122,9 @@ public class Cassandra {
 	}
 	
 	
-	public static void insert(Session session, String keySpace,String tableName,String data ) {
+	public static void insertJSON(Session session, String keySpace,String tableName,String data ) {
 	    
-		 if(session!=null) {
+		if(session!=null) {
 			StringBuilder sb = new StringBuilder("INSERT INTO ")
 		      .append(keySpace)
 		      .append(".")
@@ -137,7 +137,7 @@ public class Cassandra {
 		    String query = sb.toString();
 		    session.execute(query);
 		 }
-		}
+	}
 	
 	
 	public static void executeQuery(Session session, String keySpace,String query) {
