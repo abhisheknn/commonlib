@@ -140,5 +140,9 @@ public class TestCassandra {
 		assertTrue(columnNames.contains("firstname"));
 
 	}
-
+	
+	
+	public void should_Create_Type_whenProperParameterPassesd() {
+		
+	}
 }
