@@ -136,7 +136,7 @@ public class Cassandra {
 		 
 		    String query = sb.toString();
 		    session.execute(query);
-		 }
+		}
 	}
 	
 	

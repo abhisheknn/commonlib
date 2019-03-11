@@ -30,7 +30,9 @@ public void connectCassandra() {
 		e.printStackTrace();
 	} 
 	CassandraConnector cassandraConnector= new CassandraConnector();
-	cassandraConnector.connect("127.0.0.1", 9142);
+	String[] nodes={"127.0.0.1"};
+	cassandraConnector.connect(nodes, 9142);
+	
 	this.session=cassandraConnector.getSession();
 	
 }	

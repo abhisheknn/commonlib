@@ -9,13 +9,12 @@ public class CassandraConnector {
 	private Cluster cluster;
 	private Session session;
 	
-	public void connect (String node, Integer port){
-		Builder builder=Cluster.builder().addContactPoint(node);
+	public void connect (String nodes[], Integer port){
+		Builder builder=Cluster.builder().addContactPoints(nodes);
 		if(port!=null) {
 			builder.withPort(port);
 		}
 		cluster=builder.build();
-		
 		session=cluster.connect();
 	}
 	

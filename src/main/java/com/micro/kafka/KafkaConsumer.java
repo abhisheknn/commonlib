@@ -9,10 +9,10 @@ import org.apache.kafka.common.config.ConfigException;
 
 public class KafkaConsumer {
 
-	public static Builder builder;
+	public  Builder builder;
 	private Consumer consumer;
 	private String topic ;
-	private Processor processor;
+	private ConsumerProcessor processor;
 	
 	public void setConsumer(Consumer consumer) {
 		this.consumer = consumer;
@@ -22,10 +22,10 @@ public class KafkaConsumer {
 		this.topic=topic;
 	}
 	
-	public void setProcessor(Processor processor) {
+	public void setProcessor(ConsumerProcessor processor) {
 		this.processor=processor;
 	}
-	public static Builder build() {
+	public  Builder build() {
 		builder= new Builder();
 		return builder;
 	}
@@ -34,18 +34,20 @@ public class KafkaConsumer {
 		this.consumer.subscribe(Arrays.asList(this.topic));
 		new Thread(()-> {
 			while(true) {
-			this.processor.execute();
+				this.processor.execute();
 			}
-		}).start();
+		},"cons").start();
 	}
 	
-	public static class Builder {
+	public class Builder {
 	 KafkaConsumer kConsumer= new KafkaConsumer();
 	 Consumer consumer;
 	
-	 public void setConsumer(Consumer consumer) {
+	 private void setConsumer(Consumer consumer) {
 		this.consumer = consumer;
 	 }
+	 
+	 
 
 	public Builder withConfig(Properties props) {
 		if(null==props.get(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG) 
@@ -74,7 +76,11 @@ public class KafkaConsumer {
 		return builder;
 	} 
 	 
-	public KafkaConsumer withProcessor(Processor processor ) {
+	public String getTopic() {
+		return kConsumer.getTopic();
+	} 
+	 
+	public KafkaConsumer withProcessor(ConsumerProcessor processor ) {
 		kConsumer.setProcessor(processor);
 		return kConsumer;
 	} 
