@@ -1,4 +1,4 @@
-package com.nfactorial;
+package com.micro;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

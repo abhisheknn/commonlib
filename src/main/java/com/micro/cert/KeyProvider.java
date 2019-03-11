@@ -29,7 +29,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 
-import com.micro.auth.constant.AppConstants;
+import com.micro.constant.AppConstants;
 import com.micro.client.RestClient;
 
 import sun.security.x509.AlgorithmId;
@@ -177,9 +177,10 @@ public Key getPrivateKey(String alias) {
 	    return keyStore;
 	}
 	
-	public String getPublicKeyFrmServer(String authServerUrl) {
-		String url=authServerUrl+"/authserver/getPublicKey";
-		return RestClient.doGet(url, null);
-	}
+//	public String getPublicKeyFrmServer(String authServerUrl) {
+//		String url=authServerUrl+"/authserver/getPublicKey";
+//		
+//		return doGet(url, null);
+//	}
 	
 }
