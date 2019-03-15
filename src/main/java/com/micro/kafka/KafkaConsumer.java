@@ -76,10 +76,6 @@ public class KafkaConsumer {
 		return builder;
 	} 
 	 
-	public String getTopic() {
-		return kConsumer.getTopic();
-	} 
-	 
 	public KafkaConsumer withProcessor(ConsumerProcessor processor ) {
 		kConsumer.setProcessor(processor);
 		return kConsumer;
