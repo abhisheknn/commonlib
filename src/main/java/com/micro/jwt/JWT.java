@@ -38,8 +38,10 @@ public class JWT {
 			       .parseClaimsJws(jwt).getBody();
 		}catch(SignatureException e){
 			//push to kafka pipe
+			e.printStackTrace();
 		}catch(MalformedJwtException e){
 			//push to kafka pipe
+			e.printStackTrace();
 		}catch(ExpiredJwtException e){
 			//push to kafka pipe
 			refreshToken(jwt);

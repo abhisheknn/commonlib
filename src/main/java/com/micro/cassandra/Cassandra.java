@@ -2,6 +2,7 @@ package com.micro.cassandra;
 
 import java.util.Map;
 
+import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.exceptions.QueryValidationException;
 import com.micro.constant.AppConstants.ReplicationStrategy;
@@ -140,9 +141,20 @@ public class Cassandra {
 	}
 	
 	
-	public static void executeQuery(Session session, String keySpace,String query) {
-	     if(session!=null) {
-			 session.execute(query);
+	public static ResultSet select(Session session, String keySpace,String table,String valuestoFetch,String whereClause) {
+		ResultSet result = null;
+		StringBuilder query= new StringBuilder();
+		query.append("select ")
+		.append(valuestoFetch)
+		.append(" from ")
+		.append(keySpace)
+		.append(".")
+		.append(table)
+		.append(" where ")
+		.append(whereClause);
+		if(session!=null) {
+	    	 result =  session.execute(query.toString());
 		 }
+		return result;
 		}
 }

@@ -16,6 +16,7 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.AbstractHttpMessage;
 import org.apache.http.message.BasicHeader;
 
 import com.google.common.collect.Lists;
@@ -30,7 +31,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 
 
-public abstract class RestClient {
+public  class RestClient {
 private  Gson gson= new Gson();
 private  Map<String, String> mandatoryHeaders=null;
 
@@ -46,19 +47,29 @@ public void setMandatoryHeaders(Map<String, String> mandatoryHeaders) {
 		 String json=gson.toJson(requestBody);
 		 StringEntity entity = new StringEntity(json);
 		 httpPost.setEntity(entity);
-		 if(null !=requestHeaders && mandatoryHeaders!=null) {
+		 setHeaders(requestHeaders, httpPost);
+		 HttpResponse httpResponse = client.execute(httpPost);
+		 Response response = getReponse(httpResponse);
+		client.close();	
+			return response;
+	}
+
+	private void setHeaders(Map<String, String> requestHeaders, AbstractHttpMessage http) {
+		if(null !=requestHeaders) {
 		 for(Map.Entry<String, String> entry:requestHeaders.entrySet()) {
-			 httpPost.addHeader(entry.getKey(), entry.getValue());
+			 http.addHeader(entry.getKey(), entry.getValue());
 			
 		 }
+		 }
+		 if(null !=mandatoryHeaders) {
 		 for(Map.Entry<String, String> entry:mandatoryHeaders.entrySet()) {
-			 httpPost.addHeader(entry.getKey(), entry.getValue());
+			 http.addHeader(entry.getKey(), entry.getValue());
 		 }
 		 }
-		 HttpResponse httpResponse = client.execute(httpPost);
-		 
-		 
-		 Response response = new Response();
+	}
+
+	private Response getReponse(HttpResponse httpResponse) throws IOException {
+		Response response = new Response();
 		 response.setStatusLine(gson.toJson(httpResponse.getStatusLine()));
 		 int responsecode=httpResponse.getStatusLine().getStatusCode();
 			if( responsecode>=200 && responsecode<400) {
@@ -72,24 +83,17 @@ public void setMandatoryHeaders(Map<String, String> mandatoryHeaders) {
 				}
 			response.setEntity(result.toString());
 			}
-		client.close();	
-			return response;
+		return response;
 	}
 	
-	public  String doGet(String url, Map<String, String> requestHeaders) {
+	public Response doGet(String url, Map<String, String> requestHeaders) {
 		 HttpClient client =  HttpClientBuilder.create().build();
 		 HttpGet httpGet= new HttpGet(url);
-		 StringBuffer result=null;
+		 Response response=null;
 		 try {
-			 if(null !=requestHeaders && mandatoryHeaders!=null) {
-				 for(Map.Entry<String, String> entry:requestHeaders.entrySet()) {
-					 httpGet.addHeader(entry.getKey(), entry.getValue());
-				 }
-				 for(Map.Entry<String, String> entry:mandatoryHeaders.entrySet()) {
-					 httpGet.addHeader(entry.getKey(), entry.getValue());
-				 }
-				 }
-				HttpResponse response= client.execute(httpGet);
+			 	setHeaders(requestHeaders, httpGet);
+				HttpResponse httpResponse= client.execute(httpGet);
+				response =getReponse(httpResponse);
 				
 			} catch (ClientProtocolException e) {
 				// TODO Auto-generated catch block
@@ -99,7 +103,7 @@ public void setMandatoryHeaders(Map<String, String> mandatoryHeaders) {
 				e.printStackTrace();
 			}
 		
-		return result.toString();
+		return response;
 	}
 	
 	
@@ -107,22 +111,13 @@ public void setMandatoryHeaders(Map<String, String> mandatoryHeaders) {
 //		RestClient client= new RestClient();
 //		Map<String, String> requestHeaders= new HashMap<>();
 //		requestHeaders.put("Content-Type","application/json");
-//		Map<String, Object> requestbody= new HashMap<>();
-//		requestbody.put("macAddress", "");
 //		try {
-//			Response response=client.doPost("http:///auth/register",requestbody ,requestHeaders);
-//			System.out.println(response.getStatusLine());
+//			Response response=client.doGet("http:///auth/getPublicKey",requestHeaders);
 //			System.out.println(response.getEntity());
-//		} catch (ClientProtocolException e) {
+//			System.out.println(response);
+//		} catch (Exception e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
-//		} catch (UnknownHostException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
 //	}
+//		}
 }
