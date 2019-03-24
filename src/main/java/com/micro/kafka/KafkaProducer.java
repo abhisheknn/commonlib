@@ -41,6 +41,12 @@ public class KafkaProducer{
 		ProducerRecord<String, String> record= new ProducerRecord<String, String>(topic,key, gson.toJson(requestBody));
 		kafkaProducer.send(record);
 	}
+	public void produce(String topic,String key,String requestBody) {
+		
+		ProducerRecord<String, String> record= new ProducerRecord<String, String>(topic,key, requestBody);
+		kafkaProducer.send(record);
+	}
+	
 	
 	public static class Builder {
 		private KafkaProducer kafkaProducer = new KafkaProducer();

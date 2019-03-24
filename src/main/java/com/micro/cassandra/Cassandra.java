@@ -157,4 +157,51 @@ public class Cassandra {
 		 }
 		return result;
 		}
+	
+
+	public static void update(Session session, String keySpace,String tableName,Map<String,Object> values,String whereClause) {
+		ResultSet result = null;
+		StringBuilder query= new StringBuilder();
+		query.append("UPDATE ")
+		.append(keySpace)
+		.append(".")
+		.append(tableName)
+		.append(" SET ");
+		for(Map.Entry<String,Object> value:values.entrySet()) {
+		query.append(value.getKey());
+		Object val=value.getValue();
+		query.append("=");
+		if(val instanceof String) {
+			query.append("'").append(val).append("'");
+		} else if(val instanceof Integer) {
+			query.append(val);
+		}
+		query.append(",");
+		}
+		int index=query.lastIndexOf(",");
+		query.replace(index, index, "");
+		query.append(" WHERE ")
+		.append(whereClause);
+		
+		
+	}
+	
+	public static ResultSet update(Session session, String keySpace,String tableName,String values,String whereClause) {
+		ResultSet result = null;
+		StringBuilder query= new StringBuilder();
+		query.append("UPDATE ")
+		.append(keySpace)
+		.append(".")
+		.append(tableName)
+		.append(" SET ")
+		.append(values)
+		.append(" WHERE ")
+		.append(whereClause);
+		
+		if(session!=null) {
+	    	 result =  session.execute(query.toString());
+		 }
+		return result;
+	}
+	
 }
