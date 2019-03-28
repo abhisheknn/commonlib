@@ -149,14 +149,22 @@ public class Cassandra {
 		.append(" from ")
 		.append(keySpace)
 		.append(".")
-		.append(table)
-		.append(" where ")
-		.append(whereClause);
+		.append(table);
+		if(null!=whereClause) {
+			query.append(" where ")
+			.append(whereClause);
+		}
 		if(session!=null) {
 	    	 result =  session.execute(query.toString());
 		 }
 		return result;
 		}
+	
+	public static ResultSet select(Session session, String keySpace,String table,String valuestoFetch) {
+		return Cassandra.select(session, keySpace, table, valuestoFetch,null);
+		}
+	
+	
 	
 
 	public static void update(Session session, String keySpace,String tableName,Map<String,Object> values,String whereClause) {
