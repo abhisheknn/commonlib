@@ -21,6 +21,9 @@ public class CassandraConnector {
 	public Session getSession() {
 		return this.session;
 	}
+	public Cluster getCluster() {
+		return this.cluster;
+	}
 	public void close() {
 		session.close();
 		cluster.close();
