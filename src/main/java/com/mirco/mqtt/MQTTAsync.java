@@ -57,8 +57,11 @@ public class MQTTAsync {
 	}
 	
 	
-	public static void connect(MqttConnectOptions options, IMqttAsyncClient publisher, Object userContext, IMqttActionListener actionListener)
+	public static void connect(MqttConnectOptions options, IMqttAsyncClient client, Object userContext, IMqttActionListener actionListener)
 			throws MqttException, MqttSecurityException {
-		publisher.connect(options,null,actionListener);
+		if(null!=actionListener)
+			client.connect(options,null,actionListener);
+		else
+			client.connect(options);
 	}
 }

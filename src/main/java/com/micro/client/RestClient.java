@@ -53,6 +53,20 @@ public void setMandatoryHeaders(Map<String, String> mandatoryHeaders) {
 		client.close();	
 			return response;
 	}
+	
+	public  Response doPost(String url,String requestBody,Map<String, String> requestHeaders) throws ClientProtocolException, IOException,UnknownHostException {
+		 Header header = new BasicHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+		 List<Header> headers = Lists.newArrayList(header);
+		 CloseableHttpClient client =  HttpClientBuilder.create().setDefaultHeaders(headers).build();
+		 HttpPost httpPost= new HttpPost(url);
+		 StringEntity entity = new StringEntity(requestBody);
+		 httpPost.setEntity(entity);
+		 setHeaders(requestHeaders, httpPost);
+		 HttpResponse httpResponse = client.execute(httpPost);
+		 Response response = getReponse(httpResponse);
+		 client.close();	
+		 return response;
+	}
 
 	private void setHeaders(Map<String, String> requestHeaders, AbstractHttpMessage http) {
 		if(null !=requestHeaders) {
